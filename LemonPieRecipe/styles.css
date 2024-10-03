@@ -1,0 +1,192 @@
+/* main */
+
+body {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    background-color: bisque;
+}
+
+/* Section presentation */
+
+#titleimg {
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#titleimg img {
+    max-width: 30%;
+    border-radius: 10px;
+}
+
+#elements {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    justify-content: center;
+}
+
+.element {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.element img {
+    max-height: 20px;
+    max-width: 20px;
+}
+
+/* Section ingrédients */
+
+#allingredients {
+    width: 70%;
+    border-radius: 20px;
+    background-color: white;
+    padding: 10px 0;
+}
+
+#ingredients {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+#ingredients img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+#ingredientsteps {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#shortcrust, #lemoncurd, #meringue {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+#shortcrust h3, #lemoncurd h3, #meringue h3 {
+    text-align: center;
+}
+
+/* Section steps */
+
+#allsteps {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 70%;
+    border-radius: 20px;
+    background-color: white;
+    padding: 10px 0;
+}
+
+#baking {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#baking img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+#totaltime {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    border: 1px solid black;
+    margin-bottom: 30px;
+}
+
+#preparationtime {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.time {
+    display: flex;
+    flex-direction: column;
+}
+
+#bakingprocess {
+    padding: 0 30px;
+}
+
+ol {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Comment Section */
+
+#commentsection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#think {
+    padding-bottom: 10px;
+}
+
+/* Star rating */
+
+.star-rating {
+    position: relative;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin: 0 -0.25rem;
+  }
+
+.star-rating input {
+    position: absolute;
+    opacity: 0;
+}
+
+.star-rating label {
+    cursor: pointer;
+    color: grey;
+    padding: 0 0.25rem;
+    transition: color 0.15s;
+}
+
+.star-rating input:checked ~ label {
+    color: gold;
+}
+
+.star-rating input:hover ~ label {
+    color: goldenrod;
+    transition: none;
+}
