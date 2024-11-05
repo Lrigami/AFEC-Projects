@@ -142,6 +142,28 @@ ol {
     gap: 10px;
 }
 
+/* Section Bravo */
+
+#bravo {
+    width: 500px;
+    height: 100px;
+    background-color: hsl(100 80% 89%);
+    text-align: center;
+    font-size: 150%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#bravo:hover {
+    background-color: hsl(100 80% 95%);
+    color: rgb(53, 52, 52);
+}
+
+#bravo p {
+    margin: auto;
+}
+
 /* Comment Section */
 
 #commentsection {

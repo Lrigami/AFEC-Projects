@@ -1,0 +1,9 @@
+article {
+    width: 800px;
+    height: 600px;
+    background-color: #fadaa8;
+    border: 2px solid #291e59;
+    border-radius: 15px;
+    margin: auto;
+    padding: 20px;
+}
