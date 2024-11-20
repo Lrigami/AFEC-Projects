@@ -11,14 +11,10 @@ const initialiseGame = () => { // initialisation to 4 in each cell (start)
 initialiseGame();
 
 const getValueFromCell = (event) => {
-    currentCell = event.target;
-    currentCellId = event.target.id;
-    currentCellValue = event.target.value;
-    console.log(currentCellValue);
-    return currentCellValue;
+    return event.target.value;
 }    
 
-const isValueInfToTwleve = (event) => {
+const isValueUnderTwelve = (event) => {
     if (getValueFromCell(event) <= 11) {
         return true;
     } else {
@@ -27,39 +23,77 @@ const isValueInfToTwleve = (event) => {
 }
 
 const distributeValue = (cell) => {
-    let nextCell = cell.nextElementSibling;
 
-    if (isValueInfToTwleve(event)) {
-        if (currentCellId == "cell12") {
-            nextCell = cellOne;
-        } else {
-            for (let i = currentCellValue; i > 0; i--) {
-                currentCellValue--;
-                currentCell.innerText = currentCellValue;
+    if (isValueUnderTwelve(event)) {
+        distributeToNext(cell);
+    } else {
+        let nextCell = cell.nextElementSibling;
+        let cellValueStart = cell.value;
 
-                if(!currentCell.nextElementSibling && i == currentCellValue) {
-                    nextCell = cellOne;
-                } else if(currentCell.nextElementSibling && i == currentCellValue) {
-                    nextCell = currentCell.nextElementSibling;
-                }
-
-                nextCell.value++;
-                nextCell.innerText = nextCell.value;
-
-                if(!nextCell.nextElementSibling) {
-                    nextCell = cellOne;
-                } else {
-                    nextCell = nextCell.nextElementSibling;
-                }
+        for (let i = 11; i > 0; i--) {
+            cell.value--;
+            cell.innerText = cell.value;
+    
+            if(!cell.nextElementSibling && i == cellValueStart) {
+                nextCell = cellOne;
+            } else if(cell.nextElementSibling && i == cellValueStart) {
+                nextCell = cell.nextElementSibling;
+            } 
+    
+            nextCell.value++;
+            nextCell.innerText = nextCell.value;
+    
+            if(!nextCell.nextElementSibling) {
+                nextCell = cellOne;
+            } else {
+                nextCell = nextCell.nextElementSibling;
             }
         }
+        distributeToPrevious(cell);
+    }
+}
 
-    } else {
-        if (currentCellId == "cell12") {
+const distributeToNext = (cell) => {
+    let nextCell = cell.nextElementSibling;
+    let cellValueStart = cell.value;
+
+    for (let i = cell.value; i > 0; i--) {
+        cell.value--;
+        cell.innerText = cell.value;
+
+        if(!cell.nextElementSibling && i == cellValueStart) {
+            nextCell = cellOne;
+        } else if(cell.nextElementSibling && i == cellValueStart) {
+            nextCell = cell.nextElementSibling;
+        } 
+
+        nextCell.value++;
+        nextCell.innerText = nextCell.value;
+
+        if(!nextCell.nextElementSibling) {
             nextCell = cellOne;
         } else {
-
+            nextCell = nextCell.nextElementSibling;
         }
+    }
+}
+
+const distributeToPrevious = (cell) => {
+    let previousCell = cell.previousElementSibling;
+    let cellValueStart = cell.value;
+
+    for (let i = cell.value; i > 0; i--) {
+        cell.value--;
+        cell.innerText = cell.value;
+
+        if(!cell.nextElementSibling && i == cellValueStart) {
+            previousCell = cellTwelve;
+        } else if(cell.nextElementSibling && i == cellValueStart) {
+            previousCell = cell.previousElementSibling;
+        } 
+
+        previousCell.value++;
+        previousCell.innerText = previousCell.value;
     }
 }
 
