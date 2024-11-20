@@ -30,15 +30,14 @@ const isValueUnderTwelve = (event) => {
 // Function to distribute the value until eleven (for the case when the cell value is sup to 12)
 const distributeUntilEleven = (cell) => {
     let nextCell = cell.nextElementSibling;
-    let cellValueStart = cell.value;
 
     for (let i = 11; i > 0; i--) {
         cell.value--;
         cell.innerText = cell.value;
 
-        if(!cell.nextElementSibling && i == cellValueStart) {
+        if(!cell.nextElementSibling && i == 11) {
             nextCell = cellOne;
-        } else if(cell.nextElementSibling && i == cellValueStart) {
+        } else if(cell.nextElementSibling && i == 11) {
             nextCell = cell.nextElementSibling;
         } 
 
@@ -79,33 +78,13 @@ const distributeToNext = (cell) => {
     }
 }
 
-// distribute all the remainng value of the cell to the previous cell
-const distributeToPrevious = (cell) => {
-    let previousCell = cell.previousElementSibling;
-    let cellValueStart = cell.value;
-
-    for (let i = cell.value; i > 0; i--) {
-        cell.value--;
-        cell.innerText = cell.value;
-
-        if(!cell.nextElementSibling && i == cellValueStart) {
-            previousCell = cellTwelve;
-        } else if(cell.nextElementSibling && i == cellValueStart) {
-            previousCell = cell.previousElementSibling;
-        } 
-
-        previousCell.value++;
-        previousCell.innerText = previousCell.value;
-    }
-}
-
 // distribute the value depending on the case (call the right functions)
 const distributeValue = (cell) => {
     if (isValueUnderTwelve(event)) {
         distributeToNext(cell);
     } else {
         distributeUntilEleven(cell);
-        distributeToPrevious(cell);
+        distributeToNext(cell);
     }
 }
 
