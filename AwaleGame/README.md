@@ -23,7 +23,7 @@ Rules :
 
 - [x] initialise the holes;
 - [x] manage the loop moves;
-- [ ] manage the collect of the seeds;
+- [x] manage the collect of the seeds;
 - [ ] manage the starving moves;
 - [ ] manage the players turns;
 - [ ] manage the end of the game.

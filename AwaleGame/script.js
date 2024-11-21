@@ -3,16 +3,18 @@ const cells = document.querySelectorAll("td");
 const cellOne = document.getElementById("cell1");
 const cellTwelve = document.getElementById("cell12");
 
-let currentPlayer = 1;
+let currentPlayer;
 const turnParagraph = document.getElementById("turn");
 const playerBoardOne = document.getElementById("player-board-1");
 const playerBoardTwo = document.getElementById("player-board-2");
-let playerBoard = document.getElementById(`player-board-${currentPlayer}`);
+let playerBoard;
 
 let lastCell;
 
 // Function to initialise the game with 4 in each cell.
 const initialiseGame = () => {
+    currentPlayer = 1;
+    playerBoard = document.getElementById(`player-board-${currentPlayer}`);
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
     cells.forEach((cell) => { 
         cell.value = 4;
@@ -91,7 +93,8 @@ const collectSeeds = (lastCell) => {
 const newTurn = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
-}
+    return currentPlayer;
+} // bug : the currentPlayer is always = 1 :c 
 
 // click EventListener on the cell when the user plays.
 cells.forEach((cell) => {
