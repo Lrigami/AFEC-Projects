@@ -65,7 +65,7 @@ const distributeToNext = (cell) => {
     }
 }
 
-// collect of the seeds
+// verify if the value of the cell is equal to 2 or 3
 const isSeedsEqualToTwoOrThree = (cell) => {
     if (cell.value == 2 || cell.value == 3) {
         return true;
@@ -75,18 +75,17 @@ const isSeedsEqualToTwoOrThree = (cell) => {
     }
 }
 
+// collect of the seeds
 const collectSeeds = (lastCell) => {
-    while (isSeedsEqualToTwoOrThree(lastCell)) {
-        playerBoard.value += lastCell.value;
+    while (isSeedsEqualToTwoOrThree(lastCell)) {    // call the verifying function. If true :
+        playerBoard.value += lastCell.value;        // add the value to the playerBoard
         playerBoard.innerText = playerBoard.value;    
-        lastCell.value = 0;
+        lastCell.value = 0;                         // put the value of the cell back to 0
         lastCell.innerText = lastCell.value;
-        lastCell = lastCell.previousElementSibling;
-    }
-    return;
+        lastCell = lastCell.previousElementSibling; // check the previous cell 
+    }                                               // while there are 2 or 3 seeds, there are collected. 
+    return;                                         // If not, the function stops.
 }
-
-// vérifier que la valeur de la cell = 2 ou 3. si oui -> collecter + vérifier la cellule précédente, sinon stop
 
 // Manage the players turns
 const newTurn = () => {
