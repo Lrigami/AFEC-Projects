@@ -1,13 +1,31 @@
 // declarations.
 const cells = document.querySelectorAll("td");
 const cellOne = document.getElementById("cell1");
+const cellTwo = document.getElementById("cell2");
+const cellThree = document.getElementById("cell3");
+const cellFour = document.getElementById("cell4");
+const cellFive = document.getElementById("cell5");
+const cellSix = document.getElementById("cell6");
+const cellSeven = document.getElementById("cell7");
+const cellEight = document.getElementById("cell8");
+const cellNine = document.getElementById("cell9");
+const cellTen = document.getElementById("cell10");
+const cellEleven = document.getElementById("cell11");
 const cellTwelve = document.getElementById("cell12");
 
 let currentPlayer = 1;
+let opponent = 2;
 const turnParagraph = document.getElementById("turn");
 const playerBoardOne = document.getElementById("player-board-1");
 const playerBoardTwo = document.getElementById("player-board-2");
 let playerBoard = document.getElementById(`player-board-${currentPlayer}`);
+
+let playerCells1 = [cellOne, cellTwo, cellThree, cellFour, cellFive, cellSix];
+let playerCells2 = [cellSeven, cellEight, cellNine, cellTen, cellEleven, cellTwelve];
+let currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
+let opponentCells = opponent === 1 ? playerCells1 : playerCells2;
+
+console.log(currentPlayerCells, opponentCells);
 
 let lastCell;
 
@@ -27,7 +45,7 @@ const initialiseGame = () => {
 // call the function to initialise the game.
 initialiseGame(); 
 
-// Check the value of the cell
+// Check the value of the cell.
 const getValueFromCell = (event) => {
     return event.target.value;
 }    
@@ -82,8 +100,11 @@ const collectSeeds = (lastCell) => {
 // Manage the players turns
 const newTurn = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
+    opponent = opponent === 1 ? 2 : 1;
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
     playerBoard = document.getElementById(`player-board-${currentPlayer}`);
+    currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
+    opponentCells = opponent === 1 ? playerCells1 : playerCells2;
     return currentPlayer;
 }
 
@@ -93,6 +114,5 @@ cells.forEach((cell) => {
         distributeToNext(cell);
         collectSeeds(lastCell);
         newTurn();
-        console.log(currentPlayer)
     })
 })
