@@ -3,18 +3,16 @@ const cells = document.querySelectorAll("td");
 const cellOne = document.getElementById("cell1");
 const cellTwelve = document.getElementById("cell12");
 
-let currentPlayer;
+let currentPlayer = 1;
 const turnParagraph = document.getElementById("turn");
 const playerBoardOne = document.getElementById("player-board-1");
 const playerBoardTwo = document.getElementById("player-board-2");
-let playerBoard;
+let playerBoard = document.getElementById(`player-board-${currentPlayer}`);
 
 let lastCell;
 
 // Function to initialise the game with 4 in each cell.
 const initialiseGame = () => {
-    currentPlayer = 1;
-    playerBoard = document.getElementById(`player-board-${currentPlayer}`);
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
     cells.forEach((cell) => { 
         cell.value = 4;
@@ -37,22 +35,20 @@ const getValueFromCell = (event) => {
 // distribute the cell value one by one to the next cells.
 const distributeToNext = (cell) => {
     let nextCell = cell.nextElementSibling;
-    let cellValueStart = cell.value;
 
-    for (let i = cell.value; cell.value > 0; i--) {
-        cell.value--;
+    for (let cellValueStart = cell.value; cell.value > 0; cell.value--) {
         cell.innerText = cell.value;
 
-        if(!cell.nextElementSibling && i == cellValueStart) { // if the cell doesn't have a next sibling, the default next cell is cellOne (the first cell in the table).
+        if(!cell.nextElementSibling && cell.value == cellValueStart) { // if the cell doesn't have a next sibling, the default next cell is cellOne (the first cell in the table).
             nextCell = cellOne;
-        } else if(cell.nextElementSibling && i == cellValueStart) { // it if does, the next cell is the next sibling.
+        } else if(cell.nextElementSibling && cell.value == cellValueStart) { // it if does, the next cell is the next sibling.
             nextCell = cell.nextElementSibling;
         } 
 
         nextCell.value++;
         nextCell.innerText = nextCell.value;
 
-        if (i !== 1) {
+        if (cell.value !== 1) {
             if(!nextCell.nextElementSibling) { // change the next cell to be the cell after this next one.
                 nextCell = cellOne; // if it doesn't have a sibling, the default next cell is cellOne.
             } else if (nextCell.nextElementSibling == cell) {
@@ -69,12 +65,7 @@ const distributeToNext = (cell) => {
 
 // verify if the value of the cell is equal to 2 or 3
 const isSeedsEqualToTwoOrThree = (cell) => {
-    if (cell.value == 2 || cell.value == 3) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return cell.value == 2 || cell.value == 3
 }
 
 // collect of the seeds
@@ -85,16 +76,16 @@ const collectSeeds = (lastCell) => {
         lastCell.value = 0;                         // put the value of the cell back to 0
         lastCell.innerText = lastCell.value;
         lastCell = lastCell.previousElementSibling; // check the previous cell 
-    }                                               // while there are 2 or 3 seeds, there are collected. 
-    return;                                         // If not, the function stops.
+    }                                               // while there are 2 or 3 seeds, there are collected. If not, the function stops.
 }
 
 // Manage the players turns
 const newTurn = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
+    playerBoard = document.getElementById(`player-board-${currentPlayer}`);
     return currentPlayer;
-} // bug : the currentPlayer is always = 1 :c 
+}
 
 // click EventListener on the cell when the user plays.
 cells.forEach((cell) => {
@@ -102,5 +93,6 @@ cells.forEach((cell) => {
         distributeToNext(cell);
         collectSeeds(lastCell);
         newTurn();
+        console.log(currentPlayer)
     })
 })
