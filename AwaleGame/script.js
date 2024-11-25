@@ -59,7 +59,7 @@ const simulateMove = (selectedCell) => {
 
     let currentIndex = startIndex; // simulate the seeds distribution
     while (seedsToDistribute > 0) {
-        currentIndex = (currentIndex + 1) % simulatedValues.length; // go to the next cell and go back to the start if it reachs the end
+        currentIndex = (currentIndex + 1) % simulatedValues.length; // go to the next cell and go back to the start if it reaches the end
         simulatedValues[currentIndex]++;
         seedsToDistribute--;
     }
