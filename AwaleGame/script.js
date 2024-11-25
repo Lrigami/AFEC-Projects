@@ -80,8 +80,10 @@ const isMoveValid = (selectedCell) => {
 // distribute the cell value one by one to the next cells.
 const distributeToNext = (cell) => {
     let nextCell = cell.nextElementSibling;
+    let cellValueStart = cell.value
 
-    for (let cellValueStart = cell.value; cell.value > 0; cell.value--) {
+    for (let i = cell.value; i > 0; i--) {
+        cell.value--;
         cell.innerText = cell.value;
 
         if(!cell.nextElementSibling && cell.value == cellValueStart) { // if the cell doesn't have a next sibling, the default next cell is cellOne (the first cell in the table).
@@ -93,7 +95,7 @@ const distributeToNext = (cell) => {
         nextCell.value++;
         nextCell.innerText = nextCell.value;
 
-        if (cell.value !== 1) {
+        if (cell.value !== 0) {
             if(!nextCell.nextElementSibling) { // change the next cell to be the cell after this next one.
                 nextCell = cellOne; // if it doesn't have a sibling, the default next cell is cellOne.
             } else if (nextCell.nextElementSibling == cell) {
