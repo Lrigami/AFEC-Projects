@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #game {
   width: 1000px;
   font-size: 2rem;
@@ -9,7 +14,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
 }
 
 #turn {
@@ -26,6 +30,7 @@ table {
   border-radius: 300px;
   background-image: url("wood-texture.jpg");
   background-size: cover;
+  color: white;
 }
 
 tbody {
@@ -92,6 +97,7 @@ td {
   justify-content: space-between;
   height: auto;
   top: calc(50% - 10px);
+  color: white;
 }
 
 .player-board {
