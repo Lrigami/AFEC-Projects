@@ -26,4 +26,4 @@ Rules :
 - [x] manage the collect of the seeds;
 - [x] manage the starving moves;
 - [x] manage the players turns;
-- [ ] manage the end of the game.
+- [x] manage the end of the game.
