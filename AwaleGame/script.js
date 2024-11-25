@@ -21,6 +21,7 @@ const turnParagraph = document.getElementById("turn");
 const playerBoardOne = document.getElementById("player-board-1");
 const playerBoardTwo = document.getElementById("player-board-2");
 let playerBoard = document.getElementById(`player-board-${currentPlayer}`);
+let opponentBoard = document.getElementById(`player-board-${opponent}`);
 
 let playerCells1 = [cellOne, cellTwo, cellThree, cellFour, cellFive, cellSix];
 let playerCells2 = [cellSeven, cellEight, cellNine, cellTen, cellEleven, cellTwelve];
@@ -52,7 +53,7 @@ const getValueFromCell = (event) => {
 
 // simulate the move
 const simulateMove = (selectedCell) => {
-    const simulatedValues = Array.from(cells).map(cell => cell.value);
+    const simulatedValues = Array.from(cells).map(cell => cell.value);  // create a copy to run the simulation
     const startIndex = Array.from(cells).indexOf(selectedCell);
     let seedsToDistribute = simulatedValues[startIndex];
     simulatedValues[startIndex] = 0;
@@ -140,10 +141,62 @@ const newTurn = () => {
     opponent = opponent === 1 ? 2 : 1;
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
     playerBoard = document.getElementById(`player-board-${currentPlayer}`);
+    opponentBoard = document.getElementById(`player-board-${opponent}`);
     currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
     opponentCells = opponent === 1 ? playerCells1 : playerCells2;
     alertP.innerText = "";
     return currentPlayer;
+}
+
+// check if there is any more move to play
+const isThereAnyMoreMove = () => {
+    let simulatedGame = [];
+    currentPlayerCells.forEach((cell) => {
+        if(isMoveValid(cell)) {
+            simulatedGame.push(true);
+        } else {
+            simulatedGame.push(false);
+        }
+    })
+
+    return simulatedGame.some(result => result == true);
+}
+
+const isBoardNotEmpty = () => {
+    let cellValue = [];
+    currentPlayerCells.forEach((cell) => {
+        cellValue.push(cell.value);
+    })
+
+    return cellValue.some(result => result !== 0);
+}
+
+// put the remaining seeds in the right player board
+const distributeRemainingSeeds = () => {
+    playerCells1.forEach((cell) => {
+        playerBoardOne.value += cell.value;
+        cell.value = 0;
+        cell.innerText = 0;
+        playerBoardOne.innerText = playerBoardOne.value;
+    });
+
+    playerCells2.forEach((cell) => {
+        playerBoardTwo.value += cell.value;
+        cell.value = 0;
+        cell.innerText = 0;
+        playerBoardTwo.innerText = playerBoardTwo.value;
+    });
+}
+
+// determine the winner 
+const determineTheWinner = () => {
+    if (playerBoard.value > opponentBoard.value) {
+        alertP.innerText = `The winner is Player ${currentPlayer}!`
+    } else if (opponentBoard.value > playerBoard.value) {
+        alertP.innerText = `The winner is Player ${opponent}!`
+    } else {
+        alertP.innerText = "It is a draw!"
+    }
 }
 
 // click EventListener on the cell when the user plays.
@@ -168,5 +221,14 @@ cells.forEach((cell) => {
         distributeToNext(cell);
         collectSeeds(lastCell);
         newTurn();
+
+        if(!isThereAnyMoreMove() || !isBoardNotEmpty()) {
+            alertP.innerText = "It is the end of the game.";
+            cells.forEach((cell) => {
+                cell.classList.add("avoid-clicks");
+            })
+            distributeRemainingSeeds();
+            determineTheWinner();
+        }
     })
 })
