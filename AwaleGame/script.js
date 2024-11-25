@@ -25,8 +25,6 @@ let playerCells2 = [cellSeven, cellEight, cellNine, cellTen, cellEleven, cellTwe
 let currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
 let opponentCells = opponent === 1 ? playerCells1 : playerCells2;
 
-console.log(currentPlayerCells, opponentCells);
-
 let lastCell;
 
 // Function to initialise the game with 4 in each cell.
@@ -105,6 +103,12 @@ const newTurn = () => {
     playerBoard = document.getElementById(`player-board-${currentPlayer}`);
     currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
     opponentCells = opponent === 1 ? playerCells1 : playerCells2;
+    currentPlayerCells.forEach((cell) => {
+        cell.classList.toggle("avoid-clicks");
+    })
+    opponentCells.forEach((cell) => {
+        cell.classList.toggle("avoid-clicks");
+    })
     return currentPlayer;
 }
 

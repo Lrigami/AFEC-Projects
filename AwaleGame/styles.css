@@ -112,3 +112,7 @@ td {
 #player-board-2 {
   right: 10%; 
 }
+
+.avoid-clicks {
+  pointer-events: none;
+}
