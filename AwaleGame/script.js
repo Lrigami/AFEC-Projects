@@ -86,9 +86,9 @@ const distributeToNext = (cell) => {
         cell.value--;
         cell.innerText = cell.value;
 
-        if(!cell.nextElementSibling && cell.value == cellValueStart) { // if the cell doesn't have a next sibling, the default next cell is cellOne (the first cell in the table).
+        if(!cell.nextElementSibling && i == cellValueStart) { // if the cell doesn't have a next sibling, the default next cell is cellOne (the first cell in the table).
             nextCell = cellOne;
-        } else if(cell.nextElementSibling && cell.value == cellValueStart) { // it if does, the next cell is the next sibling.
+        } else if(cell.nextElementSibling && i == cellValueStart) { // it if does, the next cell is the next sibling.
             nextCell = cell.nextElementSibling;
         } 
 
@@ -126,7 +126,11 @@ const collectSeeds = (lastCell) => {
         playerBoard.innerText = playerBoard.value;    
         lastCell.value = 0;                         // put the value of the cell back to 0
         lastCell.innerText = lastCell.value;
-        lastCell = lastCell.previousElementSibling; // check the previous cell 
+        if (!lastCell.previousElementSibling) {     // check the previous cell
+            lastCell = cellTwelve;
+        } else {
+            lastCell = lastCell.previousElementSibling;
+        } 
     }                                               // while there are 2 or 3 seeds, there are collected. If not, the function stops.
 }
 
@@ -138,12 +142,18 @@ const newTurn = () => {
     playerBoard = document.getElementById(`player-board-${currentPlayer}`);
     currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
     opponentCells = opponent === 1 ? playerCells1 : playerCells2;
+    alertP.innerText = "";
     return currentPlayer;
 }
 
 // click EventListener on the cell when the user plays.
 cells.forEach((cell) => {
     cell.addEventListener("click", (event) => {
+
+        if(cell.value == 0) {
+            alertP.innerText = "You have to choose a cell that have seeds."
+            return;
+        }
 
         if(!currentPlayerCells.includes(cell)) {
             alertP.innerText = "Please click on one of your cells.";
