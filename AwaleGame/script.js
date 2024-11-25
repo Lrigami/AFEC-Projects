@@ -13,6 +13,8 @@ const cellTen = document.getElementById("cell10");
 const cellEleven = document.getElementById("cell11");
 const cellTwelve = document.getElementById("cell12");
 
+let alertP = document.getElementById("alert");
+
 let currentPlayer = 1;
 let opponent = 2;
 const turnParagraph = document.getElementById("turn");
@@ -46,7 +48,34 @@ initialiseGame();
 // Check the value of the cell.
 const getValueFromCell = (event) => {
     return event.target.value;
-}    
+}  
+
+// simulate the move
+const simulateMove = (selectedCell) => {
+    const simulatedValues = Array.from(cells).map(cell => cell.value);
+    const startIndex = Array.from(cells).indexOf(selectedCell);
+    let seedsToDistribute = simulatedValues[startIndex];
+    simulatedValues[startIndex] = 0;
+
+    let currentIndex = startIndex; // simulate the seeds distribution
+    while (seedsToDistribute > 0) {
+        currentIndex = (currentIndex + 1) % simulatedValues.length; // go to the next cell and go back to the start if it reachs the end
+        simulatedValues[currentIndex]++;
+        seedsToDistribute--;
+    }
+
+    const opponentCells = currentPlayer === 1
+        ? simulatedValues.slice(6, 12) // Player 1 looks at 7-12 cells
+        : simulatedValues.slice(0, 6); // Player 2 looks at 1-6 cells
+    return { opponentCells, simulatedValues };
+}
+
+// verify that the move is valid
+const isMoveValid = (selectedCell) => {
+    const { opponentCells } = simulateMove(selectedCell);
+    return opponentCells.some(cellValue => cellValue > 0); // Make sure that at least one cell of the opponents cells is not empty
+};
+
 
 // distribute the cell value one by one to the next cells.
 const distributeToNext = (cell) => {
@@ -86,6 +115,10 @@ const isSeedsEqualToTwoOrThree = (cell) => {
 
 // collect of the seeds
 const collectSeeds = (lastCell) => {
+    if(!opponentCells.includes(lastCell)) {
+        return;
+    }
+
     while (isSeedsEqualToTwoOrThree(lastCell)) {    // call the verifying function. If true :
         playerBoard.value += lastCell.value;        // add the value to the playerBoard
         playerBoard.innerText = playerBoard.value;    
@@ -103,18 +136,23 @@ const newTurn = () => {
     playerBoard = document.getElementById(`player-board-${currentPlayer}`);
     currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
     opponentCells = opponent === 1 ? playerCells1 : playerCells2;
-    currentPlayerCells.forEach((cell) => {
-        cell.classList.toggle("avoid-clicks");
-    })
-    opponentCells.forEach((cell) => {
-        cell.classList.toggle("avoid-clicks");
-    })
     return currentPlayer;
 }
 
 // click EventListener on the cell when the user plays.
 cells.forEach((cell) => {
     cell.addEventListener("click", (event) => {
+
+        if(!currentPlayerCells.includes(cell)) {
+            alertP.innerText = "Please click on one of your cells.";
+            return;
+        }
+
+        if(!isMoveValid(cell)) {
+            alertP.innerText = "You can't play a move that leaves no seeds in your opponent cells.";
+            return;
+        }
+
         distributeToNext(cell);
         collectSeeds(lastCell);
         newTurn();
