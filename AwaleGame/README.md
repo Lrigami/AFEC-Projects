@@ -25,5 +25,5 @@ Rules :
 - [x] manage the loop moves;
 - [x] manage the collect of the seeds;
 - [ ] manage the starving moves;
-- [ ] manage the players turns;
+- [x] manage the players turns;
 - [ ] manage the end of the game.
