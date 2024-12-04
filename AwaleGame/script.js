@@ -122,7 +122,7 @@ const collectSeeds = (lastCell) => {
         return;
     }
 
-    while (isSeedsEqualToTwoOrThree(lastCell)) {    // call the verifying function. If true :
+    while (isSeedsEqualToTwoOrThree(lastCell) && opponentCells.includes(lastCell)) {    // call the verifying function. If true :
         playerBoard.value += lastCell.value;        // add the value to the playerBoard
         playerBoard.innerText = playerBoard.value;    
         lastCell.value = 0;                         // put the value of the cell back to 0
