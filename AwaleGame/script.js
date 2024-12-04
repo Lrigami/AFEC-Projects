@@ -15,6 +15,7 @@ const cellEleven = document.getElementById("cell11");
 const cellTwelve = document.getElementById("cell12");
 
 let alertP = document.getElementById("alert");
+const newGame = document.getElementById("new-game");
 
 let currentPlayer = 1;
 let opponent = 2;
@@ -24,8 +25,8 @@ const playerBoardTwo = document.getElementById("player-board-2");
 let playerBoard = document.getElementById(`player-board-${currentPlayer}`);
 let opponentBoard = document.getElementById(`player-board-${opponent}`);
 
-let playerCells1 = [cellOne, cellTwo, cellThree, cellFour, cellFive, cellSix];
-let playerCells2 = [cellSeven, cellEight, cellNine, cellTen, cellEleven, cellTwelve];
+let playerCells1 = [cellSeven, cellEight, cellNine, cellTen, cellEleven, cellTwelve];
+let playerCells2 = [cellOne, cellTwo, cellThree, cellFour, cellFive, cellSix];
 let currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
 let opponentCells = opponent === 1 ? playerCells1 : playerCells2;
 
@@ -33,6 +34,8 @@ let lastCell;
 
 // Function to initialise the game with 4 in each cell.
 const initialiseGame = () => {
+    newGame.style.display = "none";
+    alertP.innerText  = "";
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
     cells.forEach((cell) => { 
         cell.value = 4;
@@ -67,8 +70,8 @@ const simulateMove = (selectedCell) => {
     }
 
     const opponentCells = currentPlayer === 1
-        ? simulatedValues.slice(6, 12) // Player 1 looks at 7-12 cells
-        : simulatedValues.slice(0, 6); // Player 2 looks at 1-6 cells
+        ? simulatedValues.slice(0, 6) // Player 1 looks at 7-12 cells
+        : simulatedValues.slice(7, 12); // Player 2 looks at 1-6 cells
     return { opponentCells, simulatedValues };
 }
 
@@ -142,6 +145,8 @@ const newTurn = () => {
     cells.forEach((cell) => {
         cell.style.rotate = boardgame.style.rotate === "180deg" ? "180deg" : "0deg" ;
     })
+    playerBoardOne.style.rotate = boardgame.style.rotate === "180deg" ? "180deg" : "0deg" ;
+    playerBoardTwo.style.rotate = boardgame.style.rotate === "180deg" ? "180deg" : "0deg" ;
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     opponent = opponent === 1 ? 2 : 1;
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
@@ -227,13 +232,17 @@ cells.forEach((cell) => {
         collectSeeds(lastCell);
         newTurn();
 
-        if(!isThereAnyMoreMove() || !isBoardNotEmpty()) {
+        if(!isThereAnyMoreMove() || !isBoardNotEmpty() || playerBoard.value > 24 || opponentBoard.value > 24) {
             alertP.innerText = "It is the end of the game.";
             cells.forEach((cell) => {
                 cell.classList.add("avoid-clicks");
             })
             distributeRemainingSeeds();
             determineTheWinner();
+            newGame.style.display = "block";
         }
     })
 })
+
+// Play Again
+newGame.addEventListener("click", initialiseGame);

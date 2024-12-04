@@ -24,7 +24,7 @@ body {
   justify-content: center;
   align-items: center;
   rotate: none;
-  transition: 1s;
+  transition: .5s;
 }
 
 #turn {
@@ -72,9 +72,17 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #94550C;
   border-radius: 50%;
-  background-color: rgb(92, 66, 33);
+}
+
+#cell1, #cell2, #cell3, #cell4, #cell5, #cell6, #player-board-1 {
+  border: 2px solid rgb(209, 159, 94);
+  background-color: #7f4d13;
+}
+
+#cell7, #cell8, #cell9, #cell10, #cell11, #cell12, #player-board-2 {
+  border: 2px solid #7f4d13;
+  background-color: rgb(209, 159, 94);
 }
 
 #cell7 {
@@ -128,6 +136,19 @@ td {
 
 #player-board-2 {
   right: 10%; 
+}
+
+#alert {
+  text-align: center;
+  font-size: 2rem;
+}
+
+#new-game {
+  display: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 .avoid-clicks {
