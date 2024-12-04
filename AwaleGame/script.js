@@ -36,6 +36,7 @@ let lastCell;
 const initialiseGame = () => {
     newGame.style.display = "none";
     alertP.innerText  = "";
+    currentPlayer = 1;
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;
     cells.forEach((cell) => { 
         cell.value = 4;
@@ -209,40 +210,48 @@ const determineTheWinner = () => {
     }
 }
 
-// click EventListener on the cell when the user plays.
-cells.forEach((cell) => {
-    cell.addEventListener("click", (event) => {
-
-        if(cell.value == 0) {
-            alertP.innerText = "You have to choose a cell that have seeds."
-            return;
-        }
-
-        if(!currentPlayerCells.includes(cell)) {
-            alertP.innerText = "Please click on one of your cells.";
-            return;
-        }
-
-        if(!isMoveValid(cell)) {
-            alertP.innerText = "You can't play a move that leaves no seeds in your opponent cells.";
-            return;
-        }
-
-        distributeToNext(cell);
-        collectSeeds(lastCell);
-        newTurn();
-
-        if(!isThereAnyMoreMove() || !isBoardNotEmpty() || playerBoard.value > 24 || opponentBoard.value > 24) {
-            alertP.innerText = "It is the end of the game.";
-            cells.forEach((cell) => {
-                cell.classList.add("avoid-clicks");
-            })
-            distributeRemainingSeeds();
-            determineTheWinner();
-            newGame.style.display = "block";
-        }
+// if players are both human 
+function gameForTwoPlayers() {
+    cells.forEach((cell) => {
+        cell.addEventListener("click", (event) => {
+    
+            if(cell.value == 0) {
+                alertP.innerText = "You have to choose a cell that have seeds."
+                return;
+            }
+    
+            if(!currentPlayerCells.includes(cell)) {
+                alertP.innerText = "Please click on one of your cells.";
+                return;
+            }
+    
+            if(!isMoveValid(cell)) {
+                alertP.innerText = "You can't play a move that leaves no seeds in your opponent cells.";
+                return;
+            }
+    
+            distributeToNext(cell);
+            collectSeeds(lastCell);
+            newTurn();
+    
+            if(!isThereAnyMoreMove() || !isBoardNotEmpty() || playerBoard.value > 24 || opponentBoard.value > 24) {
+                alertP.innerText = "It is the end of the game.";
+                cells.forEach((cell) => {
+                    cell.classList.add("avoid-clicks");
+                })
+                distributeRemainingSeeds();
+                determineTheWinner();
+                newGame.style.display = "block";
+            }
+        })
     })
-})
+}
+
+// if one player plays against computer
+function playAgainstComputer() {
+    
+}
+
 
 // Play Again
 newGame.addEventListener("click", initialiseGame);
