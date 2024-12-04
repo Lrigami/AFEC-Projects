@@ -1,4 +1,5 @@
 // declarations.
+const boardgame = document.getElementById("game");
 const cells = document.querySelectorAll("td");
 const cellOne = document.getElementById("cell1");
 const cellTwo = document.getElementById("cell2");
@@ -137,6 +138,10 @@ const collectSeeds = (lastCell) => {
 
 // Manage the players turns
 const newTurn = () => {
+    boardgame.style.rotate = boardgame.style.rotate === "180deg" ? "0deg" : "180deg";
+    cells.forEach((cell) => {
+        cell.style.rotate = boardgame.style.rotate === "180deg" ? "180deg" : "0deg" ;
+    })
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     opponent = opponent === 1 ? 2 : 1;
     turnParagraph.innerText = `It is player ${currentPlayer} turn.`;

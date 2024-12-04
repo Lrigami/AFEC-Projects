@@ -3,12 +3,14 @@ html {
   flex-direction: column;
   margin: 0; 
   padding: 0;
+  height: 100dvh;
 }
 
 body {
   margin: 0 auto;
   padding: 0;
   position: relative;
+  height: 100%;
 }
 
 #game {
@@ -21,6 +23,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  rotate: none;
+  transition: 1s;
 }
 
 #turn {
@@ -103,7 +107,7 @@ td {
   display: flex;
   justify-content: space-between;
   height: auto;
-  top: calc(50% - 10px);
+  top: calc(50% - 50px);
   color: white;
 }
 
