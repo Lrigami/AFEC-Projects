@@ -30,6 +30,12 @@ let playerCells2 = [cellOne, cellTwo, cellThree, cellFour, cellFive, cellSix];
 let currentPlayerCells = currentPlayer === 1 ? playerCells1 : playerCells2;
 let opponentCells = opponent === 1 ? playerCells1 : playerCells2;
 
+const twoPlayers = document.getElementById("two-players");
+const vsComputer = document.getElementById("against-computer");
+const difficulty = document.getElementById("difficulty");
+
+
+
 let lastCell;
 
 // Function to initialise the game with 4 in each cell.
@@ -47,9 +53,6 @@ const initialiseGame = () => {
     playerBoardOne.innerText = playerBoardOne.value;
     playerBoardTwo.innerText = playerBoardTwo.value;
 }
-
-// call the function to initialise the game.
-initialiseGame(); 
 
 // Check the value of the cell.
 const getValueFromCell = (event) => {
@@ -211,47 +214,94 @@ const determineTheWinner = () => {
 }
 
 // if players are both human 
-function gameForTwoPlayers() {
+twoPlayers.addEventListener("click", () => {
+    vsComputer.style.display = "none";
+    initialiseGame(); 
     cells.forEach((cell) => {
         cell.addEventListener("click", (event) => {
-    
-            if(cell.value == 0) {
-                alertP.innerText = "You have to choose a cell that have seeds."
-                return;
-            }
-    
-            if(!currentPlayerCells.includes(cell)) {
-                alertP.innerText = "Please click on one of your cells.";
-                return;
-            }
-    
-            if(!isMoveValid(cell)) {
-                alertP.innerText = "You can't play a move that leaves no seeds in your opponent cells.";
-                return;
-            }
-    
-            distributeToNext(cell);
-            collectSeeds(lastCell);
-            newTurn();
-    
-            if(!isThereAnyMoreMove() || !isBoardNotEmpty() || playerBoard.value > 24 || opponentBoard.value > 24) {
-                alertP.innerText = "It is the end of the game.";
-                cells.forEach((cell) => {
-                    cell.classList.add("avoid-clicks");
-                })
-                distributeRemainingSeeds();
-                determineTheWinner();
-                newGame.style.display = "block";
-            }
+            play(cell);
         })
     })
-}
+});
 
 // if one player plays against computer
-function playAgainstComputer() {
-    
-}
+vsComputer.addEventListener("click", () => {
+    twoPlayers.style.display = "none";
+    difficulty.style.display = "block";
+    initialiseGame(); 
+    let count = 0;
 
+    function playerTurn() {
+        currentPlayerCells.forEach(cell => {
+            cell.onclick = () => {
+                let chosenCell = cell; 
+                if (!isMoveValid(chosenCell) || !currentPlayerCells.includes(chosenCell) || chosenCell.value == 0) {
+                    alertP.innerText = "Please chose a valid cell.";
+                    playerTurn();
+                } else {
+                    play(chosenCell);
+                    count++;
+                    setTimeout(handleTurn, 1000); 
+                }
+            };
+        });
+    }
+    
+    function computerTurn() {
+        let chosenCell = Math.floor(Math.random() * 6);
+        while (!isMoveValid(currentPlayerCells[chosenCell]) || currentPlayerCells[chosenCell].value == 0) {
+            if(chosenCell == 5) {
+                chosenCell = 0;
+            } else {
+                chosenCell++;
+            }
+        }
+        play(currentPlayerCells[chosenCell]);
+        count++;
+        setTimeout(handleTurn, 1000); // Next turn
+    }
+
+    function handleTurn() {
+        if (count % 2 === 0) {
+            playerTurn(); // Tour du joueur
+        } else {
+            computerTurn(); // Tour de l'ordinateur
+        }
+    }
+
+    handleTurn();
+})
+
+function play(cell) {
+    if(cell.value == 0) {
+        alertP.innerText = "You have to choose a cell that have seeds."
+        return;
+    }
+
+    if(!currentPlayerCells.includes(cell)) {
+        alertP.innerText = "Please click on one of your cells.";
+        return;
+    }
+
+    if(!isMoveValid(cell)) {
+        alertP.innerText = "You can't play a move that leaves no seeds in your opponent cells.";
+        return;
+    }
+
+    distributeToNext(cell);
+    collectSeeds(lastCell);
+    newTurn();
+
+    if(!isThereAnyMoreMove() || !isBoardNotEmpty() || playerBoard.value > 24 || opponentBoard.value > 24) {
+        alertP.innerText = "It is the end of the game.";
+        cells.forEach((cell) => {
+            cell.classList.add("avoid-clicks");
+        })
+        distributeRemainingSeeds();
+        determineTheWinner();
+        newGame.style.display = "block";
+    }
+}
 
 // Play Again
 newGame.addEventListener("click", initialiseGame);

@@ -75,12 +75,12 @@ td {
   border-radius: 50%;
 }
 
-#cell1, #cell2, #cell3, #cell4, #cell5, #cell6, #player-board-1 {
+#cell1, #cell2, #cell3, #cell4, #cell5, #cell6, #player-board-2 {
   border: 2px solid rgb(209, 159, 94);
   background-color: #7f4d13;
 }
 
-#cell7, #cell8, #cell9, #cell10, #cell11, #cell12, #player-board-2 {
+#cell7, #cell8, #cell9, #cell10, #cell11, #cell12, #player-board-1 {
   border: 2px solid #7f4d13;
   background-color: rgb(209, 159, 94);
 }
