@@ -1,18 +1,14 @@
-class Professeur {
+class Personne {
 
-    // classe pour créer une nouvelle instance de professeur avec toutes ses caractéristiques
-    static _salaireDeBase = 2000;
-
-    constructor (nom, prénom, matière, numéroDeTéléphone, adresse) {
+    // classe qui permet de créer une nouvelle instance de personne. Les classes Professeur et Etudiant en héritent.
+    constructor (prénom, nom, numéroDeTéléphone, adresse) {
         this.nom = nom;
         this.prénom = prénom;
-        this.matière = matière;
-        this._numéroDeTéléphone = numéroDeTéléphone;
         this.adresse = adresse;
-        this.créneaux = [];
+        this._numéroDeTéléphone = numéroDeTéléphone;
     }
 
-    // Permet de notifier un changement de numéro de téléphone ou de salaire
+    // Permet de notifier un changement de numéro de téléphone
     get numéroDeTéléphone() {
         return this._numéroDeTéléphone;
     }
@@ -21,7 +17,20 @@ class Professeur {
         this._numéroDeTéléphone = nouveauNum;
         console.log(`Nouveau numéro de téléphone de ${this.prénom} ${this.nom} : ${this.numéroDeTéléphone}`);
     }
-    
+}
+
+class Professeur extends Personne {
+
+    // classe pour créer une nouvelle instance de professeur avec toutes ses caractéristiques
+    static _salaireDeBase = 2000;
+
+    constructor (prénom, nom, matière, numéroDeTéléphone, adresse) {
+        super(prénom, nom, numéroDeTéléphone, adresse);
+        this.matière = matière;
+        this.créneaux = [];
+    }
+
+    // Permet de notifier un changement de salaire
     get salaireDeBase() {
         return Professeur._salaireDeBase;
     }
@@ -33,7 +42,7 @@ class Professeur {
 
     // Affiche dans la console toutes les informations sur le professeur concerné
     afficher() {
-        console.log(`${this.nom.toUpperCase()} ${this.prénom}\nMatière : ${this.matière}\nSalaire : ${Professeur._salaireDeBase}\nTéléphone : ${this._numéroDeTéléphone}\nAdresse : ${this.adresse.insérer()}\nCréneaux :`);
+        console.log(`${this.nom.toUpperCase()} ${this.prénom}\nMatière : ${this.matière}\nSalaire : ${Professeur._salaireDeBase}€\nTéléphone : ${this._numéroDeTéléphone}\nAdresse : ${this.adresse.insérer()}\nCréneaux :`);
         this.créneaux.forEach(creneau => creneau.insérer());
         console.log("-----");
     }
@@ -50,29 +59,26 @@ class Professeur {
 
 }
 
-class Etudiant {
+class Etudiant extends Personne {
 
     // Classe qui permet de créer une instance d'étudiant avec toutes ses caractéristiques
-    constructor (prénom, nom, numéroDeTéléphone, dateDeNaissance, niveau, adresse, commentaires) {
-        this.prénom = prénom;
-        this.nom = nom;
-        this.numéroDeTéléphone = numéroDeTéléphone;
-        this.dateDeNaissance = dateDeNaissance;
+    constructor (prénom, nom, numéroDeTéléphone, niveau, numéroEtudiant, adresse, commentaires) {
+        super(prénom, nom, numéroDeTéléphone, adresse);
         this.niveau = niveau;
-        this.adresse = adresse;
+        this.numéroEtudiant = numéroEtudiant;
         this._commentaires = commentaires || "[aucun commentaire]";
     }
 
     // Méthode qui permet d'afficher toutes les informations sur l'étudiant concerné.
     afficher() {
-        console.log(`${this.nom.toUpperCase()} ${this.prénom}\nDate de naissance : ${this.dateDeNaissance}\nNiveau : ${this.niveau}\nTéléphone : ${this.numéroDeTéléphone}\nAdresse : ${this.adresse.insérer()}\nCommentaires : ${this._commentaires}\n-----`)
+        console.log(`${this.nom.toUpperCase()} ${this.prénom}\nNiveau : ${this.niveau}\nNuméro étudiant : ${this.numéroEtudiant}\nTéléphone : ${this.numéroDeTéléphone}\nAdresse : ${this.adresse.insérer()}\nCommentaires : ${this._commentaires}\n-----`)
     }
 }
 
 class Adresse {
 
     // Classe qui permet de créer une nouvelle instance d'adresse.
-    constructor(numéroVoie, typeDeVoie, nomDeVoie, codePostal, ville, mentionsComplémentaires) {
+    constructor (numéroVoie, typeDeVoie, nomDeVoie, codePostal, ville, mentionsComplémentaires) {
         this.mentionsComplémentaires = mentionsComplémentaires || "";
         this.numéroVoie = numéroVoie;
         this.typeDeVoie = typeDeVoie;
@@ -95,7 +101,7 @@ class Adresse {
 class Creneau {
 
     // Classe permettant de créer une nouvelle instance de créneau horaire
-    constructor(début, durée, professeur) {
+    constructor (début, durée, professeur) {
         this.début = new Date();
         this.début.setHours(début.split(":")[0]);
         this.début.setMinutes(début.split(":")[1]);
@@ -146,11 +152,11 @@ let sophieAdresse = new Adresse (17, "Boulevard", "des airs", 65409, "VillageInc
 let jérômeAdresse = new Adresse (322, "Rue", "du chemin de fer", 45678, "Suite");
 let joannaAdresse = new Adresse (200, "Voie", "du Paquebot bleu", 89000, "Marseille", "Appartement 14, Etage 6");
 
-let anna = new Professeur ("Martin", "Anna", "Histoire-Géo", "06-67-68-69-70", annaAdresse);
-let marc = new Professeur ("Dupont", "Marc", "Physique-Chimie", "06-20-21-22-23", marcAdresse);
-let sophie = new Professeur ("Paul", "Sophie", "Latin", "06-30-31-32-33", sophieAdresse);
-let jérôme = new Professeur ("Foin", "Jérôme", "Français", "06-12-13-14-15", jérômeAdresse);
-let joanna = new Professeur ("Croix", "Joanna", "EPS", "06-43-44-45-46", joannaAdresse);
+let anna = new Professeur ("Anna", "Martin", "Histoire-Géo", "06-67-68-69-70", annaAdresse);
+let marc = new Professeur ("Marc", "Dupont", "Physique-Chimie", "06-20-21-22-23", marcAdresse);
+let sophie = new Professeur ("Sophie", "Paul", "Latin", "06-30-31-32-33", sophieAdresse);
+let jérôme = new Professeur ("Jéröme", "Foin", "Français", "06-12-13-14-15", jérômeAdresse);
+let joanna = new Professeur ("Joanna", "Croix", "EPS", "06-43-44-45-46", joannaAdresse);
 
 let professeurs = [anna, marc, sophie, jérôme, joanna];
 
@@ -218,30 +224,11 @@ let emilieAdresse = new Adresse (7, "Place", "du Bal", 87006, "Jean-Dit");
 let pascalAdresse = new Adresse (4, "Chemin", "du grand chêne", 62355, "Lieu-dit le Jeune");
 let jennieAdresse = new Adresse (92, "avenue", "des platanes", 47655, "Grande-ville", "Appartement 212A");
 
-let emilie = new Etudiant("Emilie", "Roi", "06-10-12-14-16", "07-12-03", "Licence", emilieAdresse);
-let pascal = new Etudiant("Pascal", "De Silva", "07-67-68-69-70", "01-02-01", "Master", pascalAdresse, "Allergique aux arachides");
-let jennie = new Etudiant("Jennie", "Joplin", "07-08-09-10-11", "21-06-98", "Doctorat", jennieAdresse, "Actuellement au Canada");
+let emilie = new Etudiant("Emilie", "Roi", "06-10-12-14-16", "Licence", "76439275e", emilieAdresse);
+let pascal = new Etudiant("Pascal", "De Silva", "07-67-68-69-70", "Master", "05456434e", pascalAdresse, "Allergique aux arachides");
+let jennie = new Etudiant("Jennie", "Joplin", "07-08-09-10-11", "Doctorat", "01624356e", jennieAdresse, "Actuellement au Canada");
 
 let etudiants = [emilie, pascal, jennie];
 
 console.log("----- Etudiants -----")
 etudiants.forEach(etudiant => etudiant.afficher());
-
-// Adresses
-let adresses = [
-    new Adresse (5, "rue", "du Joli Bois", 45009, "Ville-Mystère"),
-    new Adresse (10, "voie", "du Port", 12765, "Ville-Fantôme", "Appartement B"),
-    new Adresse (12, "avenue", "des Saules", 78900, "Saint-Port-du-Comte")
-];
-
-console.log("----- Adresses -----")
-adresses.forEach(adresse => adresse.afficher());
-
-// Créneaux
-let créneaux = [
-    new Creneau ("09:00", 60, joanna),
-    new Creneau ("10:15", 120, jérôme),
-    new Creneau ("14:30", 90, anna)
-]
-
-créneaux.forEach(créneau => créneau.afficher());
