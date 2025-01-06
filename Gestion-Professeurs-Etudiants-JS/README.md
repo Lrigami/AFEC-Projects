@@ -9,3 +9,4 @@ Clone this repository, then launch the index.html file.
 ## Consignes
 
 Etape 1 : Créer une classe Professeur, une classe Etudiant et une classe Adresse.
+Etape 2 : Ajout d'adresses pour les professeurs et les étudiants et Gestion des créneaux horaires pour les professeurs.
