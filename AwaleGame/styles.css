@@ -13,6 +13,21 @@ body {
   position: relative;
   height: 100%;
   background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#parameters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#parameters p {
+  font-size: 2rem;
 }
 
 #game {
@@ -165,5 +180,30 @@ footer {
 }
 
 @media screen and (max-width: 801px) {
-  
+  #game {
+    width: 800px;
+  }
+
+  tbody {
+    margin: 20px 100px;
+  }
+
+  tr {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  td {
+    width: 80px;
+    height: 80px;
+  }
+
+  #player-boards {
+    width: 96%; 
+    top: calc(50% - 45px);
+  }
+
+  .player-board {
+    width: 80px;
+    height: 80px;
+  }
 }
