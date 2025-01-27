@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { BSONType, MongoClient } from "mongodb";
 
 const URI = "mongodb://127.0.0.1:27017/";
 
@@ -18,6 +18,27 @@ async function updateProducts() {
         // Message de succès
         console.log(`Connexion à la base de données ${db.databaseName} réussie.`);
 
+        // Schéma de validation
+        const productSchema = db.createCollection("products", {
+            validator: {
+                $jsonSchema: {
+                    bsonType: "object",
+                    required: ["name", "price", "isDeleted"],
+                    properties: {
+                        name: {
+                            bsonType: "String"
+                        }, 
+                        price: {
+                            bsonType: "Number"
+                        }, 
+                        isDeleted: {
+                            bsonType: "boolean"
+                        }
+                    }
+                }
+            }
+        })
+
         // Sélectionner la collection
         const products = db.collection("products");
 
@@ -26,10 +47,9 @@ async function updateProducts() {
 
         // Insérer un document dans la collection
         const cursorInsertion = await products.insertMany([
-            {name: "Salade de fruits", price: 4.99, isDeleted: false, deletedAt: null
-            },
-            {name: "Sandwich triangle", price: 2.49, isDeleted: false, deletedAt: null},
-            {name: "Maquereaux à la moutarde", price: 2.10, isDeleted: false, deletedAt: null}
+            {name: "Salade de fruits", price: 4.99, isDeleted: false},
+            {name: "Sandwich triangle", price: 2.49, isDeleted: false},
+            {name: "Maquereaux à la moutarde", price: 2.10, isDeleted: false}
         ]);
 
         // Marquer un document comme supprimé (isDeleted: true)
@@ -40,7 +60,7 @@ async function updateProducts() {
 
         // Afficher les documents récupérés
         console.log("Documents récupérés avec succès.", await cursor.toArray());
-        
+
     } catch (error) {
         console.error("Erreur de connexion à la base de données : ", error);
     } finally {
