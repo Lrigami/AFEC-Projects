@@ -1,0 +1,55 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Exercise API",
+        "description": "Exercise : Make OpenAPI with Node.js and Express",
+        "version": "1.0.0"
+    },
+    "servers": {
+        "url": "http://localhost:3000/api"
+    },
+    "paths": {
+        "/users": {
+            "get": {
+                "summary": "Finds an existing user",
+                "description": "Get information on an existing user by ID",
+                "opetationId": "findUserById",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "Finds an existing user",
+                "description": "Get information on an existing user by ID",
+                "opetationId": "findUserById",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID value that need to be considered for filter",
+                    "required": "true",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }]
+            }
+        }
+    }
+}
