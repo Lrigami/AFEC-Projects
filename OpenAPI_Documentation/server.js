@@ -20,5 +20,5 @@ app.get('/users/:id', function(req, res) {
 
 app.listen(3000, () => {
     console.log('Serveur démarré sur http://localhost:3000');
-    console.log('Documentation available on http://localhost:3000/api-docs')
+    console.log('Documentation available on http://localhost:3000/api-docs');
 });
