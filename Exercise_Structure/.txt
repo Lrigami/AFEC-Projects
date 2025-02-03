@@ -1,0 +1,64 @@
+Pattern MVC
+--> Modèle-Vue-Contrôleur
+
+Un Design Pattern est une solution éprouvée dans le temps et généralisée pour répondre à une problématique récurrente de développeur.
+Ici, le Pattern MVC répond à une problématique récurrente de tout développeur : structurer correctement et efficacement le code de son application.
+
+1. L'utilisateur fait une requête : par ex. il demande une page. 
+2. Le contrôleur demande les informations correspondant à la requête de l'utilisateur directement au modèle. 
+3. Le modèle répond au contrôleur les informations demandées. 
+4. Le contrôleur envoie les informations à la Vue qui se charge de mettre en valeur les donées (par ex. HTML/CSS/JS). 
+5. L'utilisateur reçoit les informations demandées. 
+
+Donc le contrôleur capte les requêtes des utilisateurs et demande les informations au modèle puis les envoie à la Vue. 
+Le modèle contient toute la logique de l'application : la récupération des données, la modification des données, le traitement entre les données, les calculs....
+La Vue contient les informations que le contrôleur lui a transmises et les affiche. 
+
+1. Le modèle (= Accès à la base de données)
+
+Le modèle est la logique de votre application. C’est dans les modèles que vous allez créer les interactions avec votre base de données pour traitement de récupération, modification, création ou encore suppression.
+
+Vous pourrez également y placer vos algorithmes et vos traitements d’informations.
+
+Veillez à décomposer votre code de tel sorte que chacune de vos méthodes ou fonctions remplit un traitement particulier. Ce sera plus lisible pour vous et plus facile à gérer.
+
+Par exemple pour la page contact, vous pourriez avoir :
+
+    une méthode pour récupérer le contenu de la page contact dans votre base de données
+    une méthode qui va traiter la soumission de votre formulaire de contact
+    une méthode qui vous enverra un e-mail avec le contenu du formulaire de contact
+    etc.
+
+2. La Vue (= Représentation pour le client)
+
+La vue a pour seul but d’afficher des informations de manière formatée et présentable pour l’utilisateur. Il n’y a aucune logique dans cette partie.
+
+Par exemple pour la page de contact, vous pourriez avoir :
+
+    une vue pour afficher les informations de la page de contact
+    une vue pour afficher le formulaire de contact
+    une vue pour afficher le message de succès pour la soumission du formulaire ou au contraire les erreurs
+    etc.
+
+3. Le Contrôleur (= Traitement des requêtes HTTP entrantes)
+
+Le contrôleur est l’orchestre de votre application. C’est la jonction entre votre modèle et votre vue. Il n’y a pas de logique dedans. Enfin pas de la logique telle que des algorithmes. Juste une succession d’appel provenant du modèle et des vues.
+
+Par exemple pour la page de contact, vous pourriez avoir :
+
+    une méthode permettant d’afficher la page de contact
+        on appellera la méthode du modèle qui va récupérer le contenu de la page de contact
+        on appellera la vue se chargeant d’afficher le contenu de la page de contact (en lui ayant injecté les données précédemment récupérées)
+        on appellera la vue se chargeant d’afficher le formulaire de contact
+    une méthode permettant de traiter le formulaire de contact
+        on appellera la méthode du modèle qui va traiter la soumission de votre formulaire de contact
+        on appellera la méthode du modèle qui enverra un e-mail avec le contenu du formulaire
+        On appellera la vue qui affichera un message de succès pour la soumission du formulaire
+    etc.
+
+A cette structure on peut rajouter un routeur, c'est-à-dire une correspondance entre un chemin (route) et une fonctionnalité (méthode d'un contrôleur), dans un dossier "routes", mais aussi des "utils" 
+
+
+Dans le controller VS router :
+- dans le routeur on voit seulement les routes et pas l'intérieur du code. 
+- le controller sert à gérer les requêtes
