@@ -62,3 +62,5 @@ A cette structure on peut rajouter un routeur, c'est-à-dire une correspondance 
 Dans le controller VS router :
 - dans le routeur on voit seulement les routes et pas l'intérieur du code. 
 - le controller sert à gérer les requêtes
+
+- Toujours un next dans un middleware pour passer à la suite, sauf en cas de gestion d'erreurs où justement on ne veut pas passer à la suite 
