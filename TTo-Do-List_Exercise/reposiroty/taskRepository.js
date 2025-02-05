@@ -11,8 +11,11 @@ class Method {
         return await new this.table(data).save();
     }
 
-    async readAll(page, limit) {
-        return await this.table.find().limit(limit).skip(limit * page);
+    async readAll(page, limit, completion) {
+        if (!completion) {
+            return await this.table.find().limit(limit).skip(limit * page);
+        }
+        return await this.table.find({completed: completion}).limit(limit).skip(limit * page);
     }
 
     async readOne(id) {
