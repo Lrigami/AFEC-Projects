@@ -1,4 +1,5 @@
 // To-Do-List Exercise 
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
