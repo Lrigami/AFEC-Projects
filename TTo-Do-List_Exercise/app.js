@@ -11,7 +11,7 @@ connectDB();
 
 app.use(express.json());
 app.use('/api', taskRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, () => {
     console.log(`Server started on http//:localhost:${port}`);
