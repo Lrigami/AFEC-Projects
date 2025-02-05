@@ -1,12 +1,11 @@
 // To-Do-List Exercise 
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
-const port = 3000;
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-
 const taskRoutes = require('./routes/taskRoutes');
+const port = 3000;
+const app = express();
 
 app.use(express.json());
 app.use('/api', taskRoutes);
@@ -18,7 +17,7 @@ mongoose.connect(process.env.MONGO_URI, {
 }).then(() => {
     console.log("MongoDB connected");
     app.listen(PORT, () => {
-        console.log(`Server started on http//:localhost:${PORT}`);
-        console.log(`Documentation available on http://localhost:${PORT}/api-docs`);
+        console.log(`Server started on http//:localhost:${port}`);
+        console.log(`Documentation available on http://localhost:${port}/api-docs`);
     });
 }).catch(err => console.log(err));

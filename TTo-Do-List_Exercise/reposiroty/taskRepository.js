@@ -1,14 +1,5 @@
 // Step 2 : Conceptualise Database : new Schema, model and 
-const mongoose = require('mongoose');
-
-const taskSchema = new mongoose.Schema({
-    title: { type: String, required: true},
-    description: { type: String },
-    completed: { type: Boolean, default: false },
-    createdAt: { type: Date, default: Date.now }
-});
-
-const Task = mongoose.model("Task", taskSchema);
+const taskModel = require('../models/taskModel');
 
 class Method {
     constructor(table) {
@@ -37,5 +28,5 @@ class Method {
     }
 };
 
-const taskMethods = new Method(Task);
+const taskMethods = new Method(taskModel);
 module.exports = taskMethods;
