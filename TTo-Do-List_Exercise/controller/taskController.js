@@ -21,7 +21,9 @@ class Controller {
 
     async readAllTasks(req, res) {
         try {
-            const allTasks = await taskFunctions.readAllTasks();
+            let page = req.query.page;
+            let limit = req.query.limit;
+            const allTasks = await taskFunctions.readAllTasks(page, limit);
             res.status(200).json(allTasks);
         } catch (err) {
             res.status(500).json({message: err.message});

@@ -9,8 +9,8 @@ class Functions {
         return await taskMethods.create(taskData);
     }
 
-    async readAllTasks() {
-        return await taskMethods.readAll();
+    async readAllTasks(page, limit) {
+        return await taskMethods.readAll(page, limit);
     }
 
     async readOneTask(taskId) {
