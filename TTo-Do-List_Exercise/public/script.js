@@ -13,6 +13,9 @@ const validateTitle = document.getElementById("validate-new-title");
 
 // List of tasks
 const tasksList = document.getElementById("tasks-list");
+let page = 0;
+const previousPageBtn = document.getElementById("previous");
+const nextPageBtn = document.getElementById("next");
 
 // New task
 const addNewTask = document.getElementById("add-new-task");
@@ -66,10 +69,9 @@ newTaskInterface.addEventListener("submit", async (event) => {
 })
 
 // Display all the tasks
-async function getAllTasks() {
+async function getAllTasks(page) {
     tasksList.innerHTML = "";
     let limit = displayedTaskNbr.value;
-    let page = 0;
     let completed = completedState.value;
 
     const url = `http://localhost:3000/api/tasks?page=${page}&limit=${limit}&completed=${completed}`;
@@ -110,8 +112,20 @@ async function getAllTasks() {
             let thisTaskDate = document.createElement("p");
             thisTaskDate.innerText = `Created at: ${new Date(task.createdAt).toLocaleString('en-GB', { timeZone: 'UTC' })}`;
 
+            let btnDiv = document.createElement("div");
+
+            let updateBtn = document.createElement("button");
+            updateBtn.innerText = "Edit task";
+
+            let deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Delete task";
+
+            btnDiv.appendChild(updateBtn);
+            btnDiv.appendChild(deleteBtn);
+
             thisTaskCard.appendChild(thisTaskState);
             thisTaskCard.appendChild(thisTaskDate);
+            thisTaskCard.appendChild(btnDiv);
 
             tasksList.appendChild(thisTaskCard);
         });
@@ -121,5 +135,20 @@ async function getAllTasks() {
 }
 getAllTasks();
 
+// filters for displaying the tasks:
 displayedTaskNbr.addEventListener("change", getAllTasks);
 completedState.addEventListener("change", getAllTasks);
+previousPageBtn.addEventListener("click", (event) => navigate(event));
+nextPageBtn.addEventListener("click", (event) => navigate(event));
+
+// navigation
+function navigate(event) {
+    if (event.target == previousPageBtn) {
+        if (page == 0) return ;
+        page = page - 1;
+        getAllTasks(page);
+    } else if (event.target == nextPageBtn) {
+        page = page + 1;
+        getAllTasks(page);
+    }
+}
