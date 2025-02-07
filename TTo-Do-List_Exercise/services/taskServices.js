@@ -18,9 +18,6 @@ class Functions {
     }
 
     async updateTask(taskId, taskData) {
-        if (!taskData.title) {
-            throw new Error("A title is required.");
-        }
         return await taskMethods.update(taskId, taskData);
     }
 
