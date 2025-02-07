@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>To-Do App</title>
         <link rel="stylesheet" href="styles.css">
-        <script src="script.js"></script>
+        <script src="script.js" defer></script>
     </head>
 
     <body>
@@ -34,6 +34,14 @@
             </div>
 
             <button id="add-new-task">Add new task</button> 
+
+            <form id="add-new-task-interface" style="display: none">
+                <label for="task-title">Title:</label>
+                <input id="task-title" type="text" name="task-title-field" required>
+                <label for="task-description">Description:</label>
+                <textarea id="task-description" type="text" name="task-description-field" rows="5" cols="20"></textarea>
+                <button id="create-task" type="submit">Validate</button>
+            </form>
         </main>
         
     </body>
