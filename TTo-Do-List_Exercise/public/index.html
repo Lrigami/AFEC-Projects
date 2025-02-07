@@ -25,9 +25,12 @@
 
         <main>
             <h2 id="list-title">My To-Do List Title</h2>
-            <button id="modify-title">Modify</button>
-            <label id="change-title-label" for="change-title">Choose a new title:</label>
-            <input id="change-title" type="text" name="title-field">
+            <button type="button" id="modify-title">Modify</button>
+            <form id="change-title-interface" style="display: none">
+                <label id="change-title-label" for="change-title">Choose a new title:</label>
+                <input id="change-title" type="text" name="title-field" >
+                <button type="submit" id="validate-new-title">Validate</button>
+            </form>
 
             <div id="tasks-list">
 
