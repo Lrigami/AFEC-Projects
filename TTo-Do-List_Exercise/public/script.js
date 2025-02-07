@@ -28,8 +28,9 @@ changeTitleInterface.addEventListener("submit", (event) => {
     event.preventDefault();
 
     let title = changeTitleInput.value;
+    localStorage.setItem(title, changeTitleInput.value);
     if (title) {
-        toDoListTitle.innerText = title;
+        toDoListTitle.innerText = localStorage.getItem(title);
     }
 
     changeTitleInput.value = "";
