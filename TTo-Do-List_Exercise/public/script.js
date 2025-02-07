@@ -25,20 +25,26 @@ const taskDescription = document.getElementById("task-description");
 const validate = document.getElementById("create-task");
 
 // Modify the to-do list title
+if (localStorage.getItem("title")) {
+    toDoListTitle.innerText = localStorage.getItem("title");
+} else {
+    toDoListTitle.innerText = "To-Do List Title";
+}
+
 modifyTitleBtn.addEventListener("click", () => changeTitleInterface.style.display = "block")
 
 changeTitleInterface.addEventListener("submit", (event) => {
     event.preventDefault();
 
     let title = changeTitleInput.value;
-    localStorage.setItem(title, changeTitleInput.value);
+    localStorage.setItem("title", title);
     if (title) {
-        toDoListTitle.innerText = localStorage.getItem(title);
+        toDoListTitle.innerText = localStorage.getItem("title");
     }
 
     changeTitleInput.value = "";
     changeTitleInterface.style.display = "none";
-} )
+})
 
 // Create a new task
 addNewTask.addEventListener("click", () => newTaskInterface.style.display = "inline-grid");
