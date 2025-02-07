@@ -11,6 +11,7 @@
         <header>
             <h1>To-Do App</h1>   
             <div id="params">
+                <h2>Parameters</h2>
                 <label for="displayed-task-nbr">Number of tasks displayed per page:</label>
                 <select id="displayed-task-nbr">
                     <option value="5">5</option>
@@ -19,6 +20,12 @@
                     <option value="20">20</option>
                     <option value="25">25</option>
                     <option value="30">30</option>
+                </select>
+                <label for="completed-state">Display tasks:</label>
+                <select id="completed-state">
+                    <option value="true">Completed</option>
+                    <option value="false">In progress</option>
+                    <option value="" selected>All</option>
                 </select>
             </div>
         </header>
@@ -32,9 +39,8 @@
                 <button type="submit" id="validate-new-title">Validate</button>
             </form>
 
-            <div id="tasks-list">
-
-            </div>
+            <h3>List of tasks:</h3>
+            <div id="tasks-list"></div>
 
             <button id="add-new-task">Add new task</button> 
 

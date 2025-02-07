@@ -2,6 +2,7 @@
 // Parameters
 const port = 3000;
 const displayedTaskNbr = document.getElementById("displayed-task-nbr");
+const completedState = document.getElementById("completed-state");
 
 // Title
 const toDoListTitle = document.getElementById("list-title");
@@ -27,7 +28,9 @@ changeTitleInterface.addEventListener("submit", (event) => {
     event.preventDefault();
 
     let title = changeTitleInput.value;
-    toDoListTitle.innerText = title;
+    if (title) {
+        toDoListTitle.innerText = title;
+    }
 
     changeTitleInput.value = "";
     changeTitleInterface.style.display = "none";
@@ -60,3 +63,62 @@ newTaskInterface.addEventListener("submit", async (event) => {
     taskDescription.value = "";
     newTaskInterface.style.display = "none";
 })
+
+// Display all the tasks
+async function getAllTasks() {
+    tasksList.innerHTML = "";
+    let limit = displayedTaskNbr.value;
+    let page = 0;
+    let completed = completedState.value;
+
+    const url = `http://localhost:3000/api/tasks?page=${page}&limit=${limit}&completed=${completed}`;
+
+    try {
+        const response = await fetch(url, {
+            method: "GET"
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const tasksData = await response.json();
+
+        tasksData.forEach(task => {
+            let thisTaskCard = document.createElement("div");
+            thisTaskCard.classList.add("task-card");
+
+            let thisTaskTitle = document.createElement("h4");
+            thisTaskTitle.innerText = task.title;
+            thisTaskCard.appendChild(thisTaskTitle);
+
+            if (task.description) {
+                let thisTaskDescription = document.createElement("p");
+                thisTaskDescription.innerText = task.description;  
+                thisTaskCard.appendChild(thisTaskDescription);
+            }
+            
+            let thisTaskState = document.createElement("p");
+            let completedState;
+            if (task.completed) {
+                completedState = "yes";
+            } else {
+                completedState = "no";
+            }
+            thisTaskState.innerText = `Completed: ${completedState}`;
+
+            let thisTaskDate = document.createElement("p");
+            thisTaskDate.innerText = `Created at: ${new Date(task.createdAt).toLocaleString('en-GB', { timeZone: 'UTC' })}`;
+
+            thisTaskCard.appendChild(thisTaskState);
+            thisTaskCard.appendChild(thisTaskDate);
+
+            tasksList.appendChild(thisTaskCard);
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+getAllTasks();
+
+displayedTaskNbr.addEventListener("change", getAllTasks);
+completedState.addEventListener("change", getAllTasks);
