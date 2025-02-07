@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>To-Do App</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>To-Do App</h1>   
+            <div id="params">
+                <label for="displayed-task-nbr">Number of tasks displayed per page:</label>
+                <select id="displayed-task-nbr">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+        </header>
+
+        <main>
+            <h2 id="list-title">My To-Do List Title</h2>
+            <button id="modify-title">Modify</button>
+            <label id="change-title-label" for="change-title">Chose a new title:</label>
+            <input id="change-title" type="text" name="title-field">
+
+            <div id="tasks-list">
+
+            </div>
+
+            <button id="add-new-task">Add new task</button> 
+        </main>
+        
+    </body>
+</html>
