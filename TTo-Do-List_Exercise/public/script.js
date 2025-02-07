@@ -25,8 +25,8 @@ addNewTask.addEventListener("click", () => newTaskInterface.style.display = "inl
 newTaskInterface.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const title = taskTitle.value;
-    const description = taskDescription.value.trim() || "";
+    let title = taskTitle.value;
+    let description = taskDescription.value.trim() || "";
 
     if(!title) {
         alert("A title is required.");
@@ -41,4 +41,8 @@ newTaskInterface.addEventListener("submit", async (event) => {
 
     const result = await response.json();
     console.log(result);
+
+    taskTitle.value = "";
+    taskDescription.value = "";
+    newTaskInterface.style.display = "none";
 })
