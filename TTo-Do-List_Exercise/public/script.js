@@ -23,13 +23,14 @@ const newTaskInterface = document.getElementById("add-new-task-interface");
 const taskTitle = document.getElementById("task-title");
 const taskDescription = document.getElementById("task-description");
 const validate = document.getElementById("create-task");
+const cancelTask = document.getElementById("cancel-task");
 
 // Modify the to-do list title
 if (localStorage.getItem("title")) {
     toDoListTitle.innerText = localStorage.getItem("title");
 } 
 
-modifyTitleBtn.addEventListener("click", () => changeTitleInterface.style.display = "block")
+modifyTitleBtn.addEventListener("click", () => changeTitleInterface.style.display = "flex");
 
 changeTitleInterface.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -45,7 +46,7 @@ changeTitleInterface.addEventListener("submit", (event) => {
 })
 
 // Create a new task
-addNewTask.addEventListener("click", () => newTaskInterface.style.display = "inline-grid");
+addNewTask.addEventListener("click", () => newTaskInterface.style.display = "flex");
 
 newTaskInterface.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -67,6 +68,12 @@ newTaskInterface.addEventListener("submit", async (event) => {
     const result = await response.json();
     console.log(result);
 
+    taskTitle.value = "";
+    taskDescription.value = "";
+    newTaskInterface.style.display = "none";
+})
+
+cancelTask.addEventListener("click", () => {
     taskTitle.value = "";
     taskDescription.value = "";
     newTaskInterface.style.display = "none";
@@ -111,18 +118,20 @@ async function getAllTasks(page) {
             } else {
                 completedState = "no";
             }
-            thisTaskState.innerText = `Completed: ${completedState}`;
+            thisTaskState.innerHTML = `<span class="bold">Completed:</span> ${completedState}`;
 
             let thisTaskDate = document.createElement("p");
-            thisTaskDate.innerText = `Created at: ${new Date(task.createdAt).toLocaleString('en-GB', { timeZone: 'UTC' })}`;
+            thisTaskDate.innerHTML = `<span class="bold">Created at:</span> ${new Date(task.createdAt).toLocaleString('en-GB', { timeZone: 'UTC' })}`;
 
             let btnDiv = document.createElement("div");
 
             let updateBtn = document.createElement("button");
-            updateBtn.innerText = "Edit task";
+            updateBtn.classList.add("btn-update");
+            updateBtn.innerText = "Edit";
 
             let deleteBtn = document.createElement("button");
-            deleteBtn.innerText = "Delete task";
+            deleteBtn.classList.add("btn-delete");
+            deleteBtn.innerText = "Delete";
 
             btnDiv.appendChild(updateBtn);
             btnDiv.appendChild(deleteBtn);

@@ -32,7 +32,7 @@
 
         <main>
             <h2 id="list-title">To-Do List title</h2>
-            <button type="button" id="modify-title">Modify</button>
+            <button type="button" id="modify-title">Modify title</button>
             <form id="change-title-interface" style="display: none">
                 <label id="change-title-label" for="change-title">Choose a new title:</label>
                 <input id="change-title" type="text" name="title-field" >
@@ -53,7 +53,11 @@
                 <input id="task-title" type="text" name="task-title-field" required>
                 <label for="task-description">Description:</label>
                 <textarea id="task-description" type="text" name="task-description-field" rows="5" cols="20"></textarea>
-                <button id="create-task" type="submit">Validate</button>
+                <div id="new-task-buttons">
+                    <button id="create-task" type="submit">Validate</button>
+                    <button id="cancel-task" type="button">Cancel</button>
+                </div>
+                
             </form>
         </main>
         
