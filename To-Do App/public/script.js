@@ -98,50 +98,12 @@ async function getAllTasks(page) {
         const tasksData = await response.json();
 
         tasksData.forEach(task => {
-            let thisTaskCard = document.createElement("div");
-            thisTaskCard.classList.add("task-card");
-
-            let thisTaskTitle = document.createElement("h4");
-            thisTaskTitle.innerText = task.title;
-            thisTaskCard.appendChild(thisTaskTitle);
-
-            if (task.description) {
-                let thisTaskDescription = document.createElement("p");
-                thisTaskDescription.innerText = task.description;  
-                thisTaskCard.appendChild(thisTaskDescription);
-            }
-            
-            let thisTaskState = document.createElement("p");
-            let completedState;
-            if (task.completed) {
-                completedState = "yes";
-            } else {
-                completedState = "no";
-            }
-            thisTaskState.innerHTML = `<span class="bold">Completed:</span> ${completedState}`;
-
-            let thisTaskDate = document.createElement("p");
-            thisTaskDate.innerHTML = `<span class="bold">Created at:</span> ${new Date(task.createdAt).toLocaleString('en-GB', { timeZone: 'UTC' })}`;
-
-            let btnDiv = document.createElement("div");
-
-            let updateBtn = document.createElement("button");
-            updateBtn.classList.add("btn-update");
-            updateBtn.innerText = "Edit";
-
-            let deleteBtn = document.createElement("button");
-            deleteBtn.classList.add("btn-delete");
-            deleteBtn.innerText = "Delete";
-
-            btnDiv.appendChild(updateBtn);
-            btnDiv.appendChild(deleteBtn);
-
-            thisTaskCard.appendChild(thisTaskState);
-            thisTaskCard.appendChild(thisTaskDate);
-            thisTaskCard.appendChild(btnDiv);
-
-            tasksList.appendChild(thisTaskCard);
+            const taskElement = document.createElement("app-task-card");
+            taskElement.setAttribute("ng-reflect-task", JSON.stringify(task));
+            taskList.appendChild(taskElement);
         });
+
+        angular.bootstrap(document.body, ['app-root']);
     } catch (err) {
         console.log(err.message);
     }
