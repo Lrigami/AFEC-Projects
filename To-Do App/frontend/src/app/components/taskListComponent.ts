@@ -149,7 +149,7 @@ export class TaskListComponent implements OnInit {
   navigate(direction: string) {
     if (direction === 'previous' && this.page > 0) {
       this.page--;
-    } else if (direction === 'next' && this.page * this.limit < this.alltasks.length) {
+    } else if (direction === 'next' && this.page * this.limit < this.alltasks.length - 5) {
       this.page++;
     }
     this.getTasks();

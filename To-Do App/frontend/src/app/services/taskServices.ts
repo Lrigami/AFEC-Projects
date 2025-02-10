@@ -49,4 +49,12 @@ export class TaskService {
         })
     );
   }
+
+  deleteTask(id: string) {
+    return this.http.delete<any>(`http://localhost:3000/api/tasks/${id}`).pipe(
+        tap(() => {
+            this.taskListSubject.next();
+        })
+    )
+  }
 }

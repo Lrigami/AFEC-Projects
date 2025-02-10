@@ -14,7 +14,7 @@ import { TaskService } from '../services/taskServices';
       <p><span class="bold">Created at:</span> {{ task.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
       <div class="edit-delete-btn">
         <button type="button" class="btn-update" (click)="displayEditForm()">Edit</button>
-        <button type="button" class="btn-delete">Delete</button>
+        <button type="button" class="btn-delete" (click)="displayCancelForm()">Delete</button>
       </div>
 
       <form id="edit-form" *ngIf="isFormVisible" (ngSubmit)="updateTask()">
@@ -35,15 +35,25 @@ import { TaskService } from '../services/taskServices';
             <button id="cancel-task" type="button" (click)="cancelEdit()">Cancel</button>
         </div>
       </form>
+
+      <form id="cancel-form" *ngIf="isCancelFormVisible" (ngSubmit)="deleteTask()">
+        <p>Are you sure you want to delete this task?</p>
+        <div id="yes-no-btn">
+          <button type="submit">Yes</button>
+          <button type="button" (click)="cancelDelete()">No</button>
+        </div>
+      </form>
   `,
 })
 export class TaskCardComponent {
   @Input() task!: { _id: string, title: string, description?: string, completed: boolean, createdAt: Date };
+  @Output() taskUpdated = new EventEmitter<void>();
   isFormVisible: boolean = false;
+  isCancelFormVisible: boolean = false;
   taskTitle: string = "";
   taskDescription: string = "";
   completedState: string = "false";
-  @Output() taskUpdated = new EventEmitter<void>();
+  
 
   constructor(public taskService: TaskService) {}
 
@@ -82,5 +92,25 @@ export class TaskCardComponent {
     this.taskDescription = this.task.description ?? "";
     this.completedState = this.task.completed ? "true" : "false";
     this.isFormVisible = false;
+  }
+
+  displayCancelForm() {
+    this.isCancelFormVisible = true;
+  }
+
+  deleteTask() {
+    let id = this.task._id;
+    this.taskService.deleteTask(id).subscribe({
+      next: () => {
+        console.log("Task updated successfully");
+        this.taskUpdated.emit();
+        this.isCancelFormVisible = false;
+      },
+      error: (error) => console.error("Update failed", error)
+    });
+  }
+
+  cancelDelete() {
+    this.isCancelFormVisible = false;
   }
 }
