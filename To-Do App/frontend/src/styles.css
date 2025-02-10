@@ -81,7 +81,7 @@ body {
 }
 
 /* tasks list */
-app-root, app-task-list {
+app-root, app-task-list, app-list-title {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -96,7 +96,8 @@ app-root, app-task-list {
 
 /* task cards */
 .task-card {
-    width: 85%;
+    width: 400px;
+    min-height: 200px;
     background: #ffffff;
     padding: 20px;
     border-radius: 12px;
@@ -107,6 +108,7 @@ app-root, app-task-list {
     gap: 12px;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     border-left: 6px solid #3498db;
+    position: relative;
 }
 
 .task-card:hover {
@@ -140,6 +142,15 @@ app-root, app-task-list {
     font-size: 0.9em;
     transition: background 0.3s ease-in-out;
     font-weight: bold;
+}
+
+.edit-delete-btn {
+    position: absolute;
+    bottom: 20px;
+}
+
+.edit-delete-btn button {
+    width: 100px;
 }
 
 .btn-update {
@@ -186,6 +197,7 @@ app-root, app-task-list {
 
 /* Forms */
 form {
+    display: flex;
     background-color: #f9f9f9;
     border-radius: 8px;
     padding: 20px;
@@ -194,6 +206,7 @@ form {
     margin: auto;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
 }
 
 form label {
@@ -239,4 +252,9 @@ form button:hover {
 form button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+#new-task-buttons {
+    display: flex;
+    gap: 5px;
 }

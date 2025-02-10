@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
       <p *ngIf="task.description">{{ task.description }}</p>
       <p><span class="bold">Completed:</span> {{ task.completed ? 'yes' : 'no' }}</p>
       <p><span class="bold">Created at:</span> {{ task.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
-      <div>
+      <div class="edit-delete-btn">
         <button class="btn-update">Edit</button>
         <button class="btn-delete">Delete</button>
       </div>
