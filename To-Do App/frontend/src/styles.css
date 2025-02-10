@@ -81,7 +81,13 @@ body {
 }
 
 /* tasks list */
-#tasks-list {
+app-root, app-task-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#generated-tasks-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -90,7 +96,7 @@ body {
 
 /* task cards */
 .task-card {
-    width: 30%;
+    width: 85%;
     background: #ffffff;
     padding: 20px;
     border-radius: 12px;

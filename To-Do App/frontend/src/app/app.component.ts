@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TaskListComponent } from './components/taskListComponent';
+import { ListTitleComponent } from './components/listTitleComponent';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [CommonModule, TaskListComponent, ListTitleComponent],
+  template: `
+  <app-list-title></app-list-title>
+  <app-task-list></app-task-list>
+  `,
 })
-export class AppComponent {
-  title = 'AngularConfig';
-}
+export class AppComponent {}
