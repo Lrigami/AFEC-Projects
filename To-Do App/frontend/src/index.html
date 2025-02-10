@@ -1,13 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>AngularConfig</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title>To-Do App</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="../../public/script.js" defer></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>To-Do App</h1>   
+            <div id="params">
+                <h2>Parameters</h2>
+                <label for="displayed-task-nbr">Number of tasks displayed per page:</label>
+                <select id="displayed-task-nbr">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                </select>
+                <label for="completed-state">Display tasks:</label>
+                <select id="completed-state">
+                    <option value="true">Completed</option>
+                    <option value="false">In progress</option>
+                    <option value="" selected>All</option>
+                </select>
+            </div>
+        </header>
+
+        <main>
+            <h2 id="list-title">To-Do List title</h2>
+            <button type="button" id="modify-title">Modify title</button>
+            <form id="change-title-interface" style="display: none">
+                <label id="change-title-label" for="change-title">Choose a new title:</label>
+                <input id="change-title" type="text" name="title-field" >
+                <button type="submit" id="validate-new-title">Validate</button>
+            </form>
+
+            <h3>List of tasks:</h3>
+            <app-root id="tasks-list"></app-root>
+            <div id="page-navigation">
+                <button id="previous">Previous page</button>
+                <button id="next">Next page</button>
+            </div>
+
+            <button id="add-new-task">Add new task</button> 
+
+            <form id="add-new-task-interface" style="display: none">
+                <label for="task-title">Title:</label>
+                <input id="task-title" type="text" name="task-title-field" required>
+                <label for="task-description">Description:</label>
+                <textarea id="task-description" type="text" name="task-description-field" rows="5" cols="20"></textarea>
+                <div id="new-task-buttons">
+                    <button id="create-task" type="submit">Validate</button>
+                    <button id="cancel-task" type="button">Cancel</button>
+                </div>
+                
+            </form>
+        </main>
+        
+    </body>
 </html>

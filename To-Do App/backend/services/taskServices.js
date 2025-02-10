@@ -1,5 +1,5 @@
 // Functions that call the methods in taskRepository
-const taskMethods = require('../reposiroty/taskRepository');
+const taskMethods = require('../repositories/taskRepository');
 
 class Functions {
     async createNewTask(taskData) {
