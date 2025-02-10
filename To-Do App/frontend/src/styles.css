@@ -258,3 +258,7 @@ form button:disabled {
     display: flex;
     gap: 5px;
 }
+
+#edit-form {
+    margin-bottom: 50px;
+}

@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  public apiUrl = 'http://localhost:3000/api/tasks';
+  private taskListSubject = new BehaviorSubject<void>(null!);
+  taskList$ = this.taskListSubject.asObservable();
+  private apiUrl = 'http://localhost:3000/api/tasks';
 
   constructor(private http: HttpClient) {}
 
-  // Récupérer toutes les tâches
+  setTitle(title: string) {
+    localStorage.setItem("title", title);
+  }
+
+  getTitle(): string {
+    return localStorage.getItem("title") ?? 'My To-Do List';
+  }
+
   getAllTasks(page?: number, limit?: number, completed?: string): Observable<any[]> {
     let url = `${this.apiUrl}?`
     if (page) {
@@ -26,18 +37,16 @@ export class TaskService {
     return this.http.get<any[]>(url);
   }
 
-  // Créer une nouvelle tâche
   createTask(title: string, description: string): Observable<any> {
     const task = { title, description };
     return this.http.post<any>(this.apiUrl, task);
   }
 
-  // Modifier le titre de la liste de tâches (si nécessaire)
-  setTitle(title: string) {
-    localStorage.setItem("title", title);
-  }
-
-  getTitle(): string {
-    return localStorage.getItem("title") ?? 'My To-Do List';
+  updateTask(task: {id: string, title: string, description?: string, completed: boolean}): Observable<any> {
+    return this.http.put<any>(`http://localhost:3000/api/tasks/${task.id}`, task).pipe(
+        tap(() => {
+            this.taskListSubject.next();
+        })
+    );
   }
 }

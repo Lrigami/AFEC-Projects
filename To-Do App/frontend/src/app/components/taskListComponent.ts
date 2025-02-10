@@ -61,7 +61,7 @@ export class TaskListComponent implements OnInit {
   alltasks: any[] = [];
   page = 0;
   limit = 5;
-  completed = 'false';
+  completed = '';
   displayedTaskNbr = 5;
   isFormVisible: boolean = false;
   taskTitle: string = "";
@@ -72,6 +72,7 @@ export class TaskListComponent implements OnInit {
   ngOnInit() {
     this.getTasks();
     this.getAllTasks();
+    this.taskService.taskList$.subscribe(() => this.getTasks());
   }
 
   getAllTasks() {
