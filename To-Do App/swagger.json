@@ -90,7 +90,7 @@
                 }
             }
         }, 
-        "/api/task/{id}": {
+        "/api/tasks/{id}": {
             "get": {
                 "summary": "Find a task by ID",
                 "description": "Returns a single task",
