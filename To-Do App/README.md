@@ -22,9 +22,10 @@ Make sure you have installed :
 
 ### 2️⃣ Clone the project
 
-``sh
+```sh
 git clone https://github.com/Lrigami/AFEC-Projects.git 
 cd To-Do_App
+```
 
 ### 📚​ Documentation
 
