@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
+// modifier ce fichier pour que cela s'applique à n'importe quelle collection 
+
 @Injectable({
   providedIn: 'root',
 })
