@@ -190,6 +190,34 @@
                     }
                 }
             }
+        }, 
+        "/api/collections": {
+            "get": {
+                "summary": "Find all existing collections in database",
+                "description": "Get the names of all the existing collections in the database.",
+                "operationId": "getCollectionNames",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "objects"
+                                    }
+                                }
+                            }
+                        }
+                    }, 
+                    "404": {
+                        "description": "No collections found."
+                    },
+                    "500": {
+                        "description": "Invalid query."
+                    }
+                }
+            }
         }
     }, 
     "components": {
