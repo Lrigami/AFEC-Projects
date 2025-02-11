@@ -1,3 +1,11 @@
+:root {
+    --greeting-font-family: "Sour Gummy";
+    --nav-title-font-family: "Atkinson Hyperlegible Mono";
+    --nav-title-hover: #fffc5c;
+    --nav-li-hover: #f6ff90;
+    --body-background-color: #fefff7;
+}
+
 html {
     margin: 0;
     padding: 0;
@@ -14,20 +22,103 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-    font-size: 44px;
+    font-size: 24px;
+    font-family: var(--greeting-font-family), Arial, Helvetica, sans-serif;
+    margin-bottom: 0;
 }
 
 .bold {
     font-weight: bold;
 }
 
+.icon {
+    width: 32px;
+    height: 32px;
+}
+
 /* general style */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #eef5ff;
     justify-content: center;
+    width: 100%;
     min-height: 100vh;
     margin: 0;
+    position: relative;
+    background-color: var(--body-background-color);
+}
+
+/* header */
+/* nav */
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 100%;
+    min-width: 230px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid black;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+nav img, h1 {
+    align-self: center;
+}
+
+nav img {
+    margin-bottom: 10px;
+}
+
+nav h2 {
+    font-family: var(--title-font-family), Arial, Helvetica, sans-serif;
+    letter-spacing: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 2px 0 2px 10px;
+    margin: 1px 0;
+}
+
+nav h2:hover {
+    background-color: var(--nav-title-hover);
+    cursor: pointer;
+}
+
+nav ul {
+    margin: 0;
+}
+
+nav li {
+    padding: 5px 0;
+    border-radius: 5px;
+}
+
+nav li:hover {
+    background-color: var(--nav-li-hover);
+    cursor: pointer;
+}
+
+/* main */
+main {
+    width: 90%;
+    height: 100%;
+    min-width: calc(100% - 230px);
+    max-width: calc(100% - 500px);
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+main h2 {
+    font-family: var(--greeting-font-family);
+    display: flex;
+    align-items: center;
+}
+
+main h2 img {
+    padding: 0 5px;
 }
 
 /* Parameters */
