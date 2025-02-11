@@ -76,7 +76,8 @@ export class TaskListComponent implements OnInit {
   }
 
   getAllTasks() {
-    this.taskService.getAllTasks().subscribe({
+    if (this.completed === 'all') {
+      this.taskService.getAllTasks().subscribe({
         next: (alldata) => {
           this.alltasks = alldata;
         },
@@ -84,17 +85,32 @@ export class TaskListComponent implements OnInit {
           console.log(error);
         }
     });
+    } else {
+      this.taskService.getAllTasks(0, 0, this.completed).subscribe({
+        next: (alldata) => {
+          this.alltasks = alldata;
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
+
   }
 
   changeLimit(event: Event) {
     const value = Number((event.target as HTMLSelectElement).value);
     this.limit = value;
+    this.page = 0;
+    this.getAllTasks();
     this.getTasks();
   }
 
   changeCompletedState(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
     this.completed = value;
+    this.page = 0;
+    this.getAllTasks();
     this.getTasks();
   }
 
@@ -149,9 +165,10 @@ export class TaskListComponent implements OnInit {
   navigate(direction: string) {
     if (direction === 'previous' && this.page > 0) {
       this.page--;
-    } else if (direction === 'next' && this.page * this.limit < this.alltasks.length - 5) {
+    } else if (direction === 'next' && (this.page + 1) * this.limit < this.alltasks.length) {
       this.page++;
     }
+    console.log(this.alltasks.length);
     this.getTasks();
   }
 
