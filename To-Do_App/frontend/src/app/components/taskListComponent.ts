@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../services/taskServices';
 import { TaskCardComponent } from './taskCardComponent'; 
+import { AddBtnComponent } from './addBtn/addBtn.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-list',
   standalone: true, 
-  imports: [CommonModule, TaskCardComponent, FormsModule], 
+  imports: [CommonModule, TaskCardComponent, FormsModule, AddBtnComponent], 
   template: `
             <div id="params">
                 <h2>Parameters</h2>
@@ -43,7 +44,7 @@ import { FormsModule } from '@angular/forms';
             </div>
 
             <!-- Formulaire pour ajouter une nouvelle tâche -->
-            <button type="button" id="add-new-task" (click)="openNewTaskForm()">Add new task</button> 
+            <add-btn (addClicked)="openNewTaskForm()"></add-btn>
 
             <form *ngIf="isFormVisible" (ngSubmit)="addNewTask()">
                 <label for="taskTitle">Title:</label>

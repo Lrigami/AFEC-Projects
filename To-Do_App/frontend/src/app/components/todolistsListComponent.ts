@@ -11,8 +11,6 @@ import { FormsModule } from '@angular/forms';
     template: `
         <div id="to-do-lists-list" *ngFor="let list of lists">
             <a href="http://localhost:4200/to-do-list.html"><to-do-list [list]="list" class="to-do-list-card"></to-do-list></a>
-
-            <button id="add-to-do-list"><img src="../assets/bee-add.png" alt="icon of a happy bee and a plus" class="add-to-do-list"/></button>
         </div>
     `,
     styles: `
