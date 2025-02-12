@@ -1,18 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodolistsService } from '../services/todolistsServices';
-import { TodolistsListComponent } from './todolistsComponent';
+import { TodolistsComponent } from './todolistsComponent';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector:'to-do-lists-list',
     standalone: true,
-    imports: [CommonModule, TodolistsListComponent, FormsModule],
+    imports: [CommonModule, TodolistsComponent, FormsModule],
     template: `
-    
+        <div *ngFor="let list of lists">
+            <to-do-list [list]="list" class="to-do-list-card"></to-do-list>
+
+            <button id="add-to-do-list"><img src="../assets/bee-add.png" alt="icon of a happy bee and a plus" class="add-to-do-list"/></button>
+        </div>
+    `,
+    styles: `
+        
     `,
 })export class TodolistsListComponent implements OnInit {
     lists: any[] = [];
+    alltodolists: any[] = [];
 
     constructor(public todolistService: TodolistsService) {}
 
@@ -21,7 +29,7 @@ import { FormsModule } from '@angular/forms';
     }
 
     getAllLists() {
-        this.todolistService.getAllLists().subscribe({
+        this.todolistService.getAllCollections().subscribe({
             next: (alldata) => {
                 this.lists = alldata;
             },

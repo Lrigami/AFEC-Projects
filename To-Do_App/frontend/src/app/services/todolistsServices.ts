@@ -8,11 +8,13 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root', // portée : application entière
 })
 export class TodolistsService {
+    private todolistListSubject = new BehaviorSubject<void>(null!);
+    todolistList$ = this.todolistListSubject.asObservable();
     private apiURL = 'http://localhost:3000/api/collections';
 
     constructor(private http: HttpClient) {}
 
-    getAllCollections() {
+    getAllCollections(): Observable<any[]> {
         return this.http.get<any[]>(this.apiURL);
     }
 

@@ -41,7 +41,11 @@ export class TaskService {
 
   createTask(title: string, description: string): Observable<any> {
     const task = { title, description };
-    return this.http.post<any>(this.apiUrl, task);
+    return this.http.post<any>(this.apiUrl, task).pipe(
+      tap(() => {
+          this.taskListSubject.next();
+      })
+    );
   }
 
   updateTask(task: {id: string, title: string, description?: string, completed: boolean}): Observable<any> {
