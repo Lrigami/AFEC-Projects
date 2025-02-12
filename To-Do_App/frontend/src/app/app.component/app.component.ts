@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { TaskListComponent } from './components/taskListComponent';
-import { ListTitleComponent } from './components/listTitleComponent';
+import { TaskListComponent } from '../components/taskListComponent';
+import { ListTitleComponent } from '../components/listTitleComponent';
 import { CommonModule } from '@angular/common';
 
 @Component({
