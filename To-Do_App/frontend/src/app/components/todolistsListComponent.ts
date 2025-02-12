@@ -9,14 +9,62 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [CommonModule, TodolistsComponent, FormsModule],
     template: `
-        <div *ngFor="let list of lists">
-            <to-do-list [list]="list" class="to-do-list-card"></to-do-list>
+        <div id="to-do-lists-list" *ngFor="let list of lists">
+            <a href="http://localhost:4200/to-do-list.html"><to-do-list [list]="list" class="to-do-list-card"></to-do-list></a>
 
             <button id="add-to-do-list"><img src="../assets/bee-add.png" alt="icon of a happy bee and a plus" class="add-to-do-list"/></button>
         </div>
     `,
     styles: `
-        
+        div {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            color: unset;
+        }
+
+        a:hover {
+            scale: 1.02;
+            transition: 0.1s;
+        }
+
+        to-do-list {
+            width: 200px;
+            height: 250px;
+            border-radius: 5px;
+            border: 1px solid black;
+            filter: drop-shadow(-10px 0px 5px rgb(255, 204, 94));
+            background-color:rgb(253, 254, 206);
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+        }
+
+        button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: flex-end;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        button img {
+            width: 60px;
+            height: 60px;
+        }
     `,
 })export class TodolistsListComponent implements OnInit {
     lists: any[] = [];
